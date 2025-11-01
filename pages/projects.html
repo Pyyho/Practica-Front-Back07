@@ -26,6 +26,13 @@
             border: 1px solid #e0e0e0;
             min-height: auto;
             height: fit-content;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .project-card h3 {
@@ -66,7 +73,129 @@
             background-color: #4a6ee0;
             color: white;
         }
-        
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: #4a6ee0;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .project-info {
+            margin-bottom: 20px;
+        }
+
+        .project-info p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .tech-tag {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            color: #495057;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .project-link {
+            padding: 10px 20px;
+            background: #4a6ee0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .project-link:hover {
+            background: #3a5ec0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
             .projects-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -85,6 +214,15 @@
             .project-card p {
                 font-size: 0.75em;
             }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .project-links {
+                flex-direction: column;
+            }
         }
         
         @media (max-width: 480px) {
@@ -96,6 +234,14 @@
             
             .project-card {
                 padding: 8px 4px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2em;
+            }
+
+            .modal-body {
+                padding: 15px;
             }
         }
     </style>
@@ -129,19 +275,19 @@
                     <button class="filter-btn">React</button>
                 </div>
                 <div class="projects-grid">
-                    <div class="project-card" data-category="html">
+                    <div class="project-card" data-category="html" data-project="personal-site">
                         <h3>Личный сайт</h3>
                         <p>HTML, CSS</p>
                     </div>
-                    <div class="project-card" data-category="js">
-                        <h3>Todo-приложение</h3>
-                        <p>JavaScript</p>
+                    <div class="project-card" data-category="js" data-project="todo-app">
+                        <h3>Игра</h3>
+                        <p>Python</p>
                     </div>
-                    <div class="project-card" data-category="react">
-                        <h3>Интернет-магазин</h3>
-                        <p>React</p>
+                    <div class="project-card" data-category="react" data-project="ecommerce">
+                        <h3>Calculator</h3>
+                        <p>C#</p>
                     </div>
-                    <div class="project-card" data-category="bootstrap">
+                    <div class="project-card" data-category="bootstrap" data-project="portfolio">
                         <h3>Портфолио</h3>
                         <p>Bootstrap</p>
                     </div>
@@ -150,12 +296,143 @@
         </section>
     </main>
 
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Название проекта</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="project-info">
+                    <p id="modalDescription">Описание проекта...</p>
+                    <div class="tech-stack" id="modalTechStack">
+                    </div>
+                    <p><strong>Срок выполнения:</strong> <span id="modalDuration">...</span></p>
+                    <p><strong>Статус:</strong> <span id="modalStatus">...</span></p>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" id="modalDemoLink" target="_blank">Демо</a>
+                    <a href="#" class="project-link" id="modalCodeLink" target="_blank">Исходный код</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2025 Контакты</p>
         </div>
     </footer>
 
-    <script src="../scripts/projects.js"></script>
+    <script>
+        const projectsData = {
+            'personal-site': {
+                title: 'Личный сайт',
+                description: 'Разработка персонального веб-сайта с информацией обо мне, моих проектах и контактах. Сайт включает в себя адаптивный дизайн, современную верстку и интерактивные элементы.',
+                technologies: ['HTML5', 'CSS3', 'JavaScript', 'Flexbox', 'Grid'],
+                duration: '2 недели',
+                status: 'Завершен',
+                codeLink: 'https://github.com/Pyyho/Practica-Front-Back07'
+            },
+            'todo-app': {
+                title: 'Игра',
+                description: 'Наинтереснейшая игра для скоротания времени.',
+                technologies: ['Python'],
+                duration: '1,5 неделя',
+                status: 'Завершен',
+                codeLink: 'https://github.com/Pyyho/Game'
+            },
+            'ecommerce': {
+                title: 'Calcelator',
+                description: 'Полезнеший и простейший калькултор.',
+                technologies: ['С#'],
+                duration: '4 дня',
+                status: 'Завершен',
+                codeLink: 'https://github.com/Pyyho/Calcilator'
+            },
+            'portfolio': {
+                title: 'Портфолио на Bootstrap',
+                description: 'Адаптивное портфолио, созданное с использованием фреймворка Bootstrap. Включает галерею проектов, контактную форму и современный дизайн.',
+                technologies: ['Bootstrap 5', 'jQuery', 'SASS', 'Responsive Design'],
+                duration: '2 неделя',
+                status: 'Завершен',
+                codeLink: 'https://github.com/Pyyho/frontend-and-backend-practice-07'
+            }
+        };
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTechStack = document.getElementById('modalTechStack');
+        const modalDuration = document.getElementById('modalDuration');
+        const modalStatus = document.getElementById('modalStatus');
+        const modalDemoLink = document.getElementById('modalDemoLink');
+        const modalCodeLink = document.getElementById('modalCodeLink');
+        const closeBtn = document.querySelector('.close-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectId = card.getAttribute('data-project');
+                const projectData = projectsData[projectId];
+                
+                if (projectData) {
+                    modalTitle.textContent = projectData.title;
+                    modalDescription.textContent = projectData.description;
+                    modalDuration.textContent = projectData.duration;
+                    modalStatus.textContent = projectData.status;
+                    modalDemoLink.href = projectData.demoLink;
+                    modalCodeLink.href = projectData.codeLink;
+                    
+                    modalTechStack.innerHTML = '';
+                    projectData.technologies.forEach(tech => {
+                        const techTag = document.createElement('span');
+                        techTag.className = 'tech-tag';
+                        techTag.textContent = tech;
+                        modalTechStack.appendChild(techTag);
+                    });
+                    
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+
+                btn.classList.add('active');
+                
+                const filter = btn.textContent.toLowerCase();
+                
+                projectCards.forEach(card => {
+                    if (filter === 'все' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
