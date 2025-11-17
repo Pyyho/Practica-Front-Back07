@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Проекты - Личный сайт студента</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/styles-responsive-images.css">
     <style>
+        .project-image-modal {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -13,7 +27,26 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
+        .projects-area {
+            container-type: inline-size;
+            container-name: projects;
+        }
+
+        @supports (container-type: inline-size) {
+            @container projects (min-width: 640px) {
+                .projects-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @container projects (min-width: 960px) {
+                .projects-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+        }
+
         .project-card {
             padding: 12px 8px;
             text-align: center;
@@ -29,12 +62,12 @@
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        
+
         .project-card h3 {
             font-size: 1em;
             margin-bottom: 6px;
@@ -42,14 +75,14 @@
             font-weight: 600;
             color: #2c3e50;
         }
-        
+
         .project-card p {
             font-size: 0.8em;
             margin: 0;
             color: #7f8c8d;
             line-height: 1.3;
         }
-        
+
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -57,17 +90,18 @@
             margin-bottom: 25px;
             flex-wrap: wrap;
         }
-        
+
         .filter-btn {
             padding: 6px 12px;
             font-size: 0.85em;
-            border: 1px solid #ddd;
+            border: 1px solid #000000;
             background-color: white;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
+            color: black;
         }
-        
+
         .filter-btn.active,
         .filter-btn:hover {
             background-color: #4a6ee0;
@@ -190,16 +224,22 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes slideIn {
-            from { 
+            from {
                 opacity: 0;
                 transform: translateY(-50px);
             }
-            to { 
+
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
@@ -211,15 +251,15 @@
                 gap: 10px;
                 max-width: 500px;
             }
-            
+
             .project-card {
                 padding: 10px 6px;
             }
-            
+
             .project-card h3 {
                 font-size: 0.9em;
             }
-            
+
             .project-card p {
                 font-size: 0.75em;
             }
@@ -233,14 +273,14 @@
                 flex-direction: column;
             }
         }
-        
+
         @media (max-width: 480px) {
             .projects-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
                 max-width: 300px;
             }
-            
+
             .project-card {
                 padding: 8px 4px;
             }
@@ -255,12 +295,14 @@
         }
     </style>
 </head>
+
 <body>
     <a class="skip-link" href="#main">Перейти к основному содержимому</a>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="../images/logo.png" alt="Логотип">
+                <img src="../images/logo.png" srcset="../images/logo.png 1x, ../images/logo@2x.png 2x" alt="Логотип"
+                    width="40" height="40">
                 <span>Тищенко Данил</span>
             </div>
             <nav>
@@ -284,22 +326,44 @@
                     <button class="filter-btn">JS</button>
                     <button class="filter-btn">React</button>
                 </div>
-                <div class="projects-grid">
-                    <div class="project-card" data-category="html" data-project="personal-site">
-                        <h3>Личный сайт</h3>
-                        <p>HTML, CSS</p>
-                    </div>
-                    <div class="project-card" data-category="js" data-project="todo-app">
-                        <h3>Игра</h3>
-                        <p>Python</p>
-                    </div>
-                    <div class="project-card" data-category="react" data-project="ecommerce">
-                        <h3>Calculator</h3>
-                        <p>C#</p>
-                    </div>
-                    <div class="project-card" data-category="bootstrap" data-project="portfolio">
-                        <h3>Портфолио</h3>
-                        <p>Bootstrap</p>
+                <div class="projects-area">
+                    <div class="projects-grid">
+                        <div class="project-card" data-category="html" data-project="personal-site">
+                            <picture>
+                                <source srcset="../images/personal-site-thumb.webp" type="image/webp">
+                                <img src="../images/personal-site-thumb.jpg" alt="Личный сайт" class="responsive-image"
+                                    loading="lazy" width="140" height="100">
+                            </picture>
+                            <h3>Личный сайт</h3>
+                            <p>HTML, CSS</p>
+                        </div>
+                        <div class="project-card" data-category="js" data-project="todo-app">
+                            <picture>
+                                <source srcset="../images/game-project.webp" type="image/webp">
+                                <img src="../images/game-project.jpg" alt="Личный сайт" class="responsive-image"
+                                    loading="lazy" width="140" height="100">
+                            </picture>
+                            <h3>Игра</h3>
+                            <p>Python</p>
+                        </div>
+                        <div class="project-card" data-category="react" data-project="ecommerce">
+                            <picture>
+                                <source srcset="../images/calculator-project.webp" type="image/webp">
+                                <img src="../images/calculator-project.jpg" alt="Личный сайт" class="responsive-image"
+                                    loading="lazy" width="140" height="100">
+                            </picture>
+                            <h3>Calculator</h3>
+                            <p>C#</p>
+                        </div>
+                        <div class="project-card" data-category="bootstrap" data-project="portfolio">
+                            <picture>
+                                <source srcset="../images/portfolio-project.webp" type="image/webp">
+                                <img src="../images/portfolio-project.jpg" alt="Личный сайт" class="responsive-image"
+                                    loading="lazy" width="140" height="100">
+                            </picture>
+                            <h3>Портфолио</h3>
+                            <p>Bootstrap</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,17 +377,23 @@
                 <button class="close-btn">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="project-image-modal">
+                    <picture>
+                        <source srcset="../images/project-demo.webp" type="image/webp">
+                        <img src="../images/project-demo.jpg" 
+                             alt="Демонстрация проекта" 
+                             class="modal-img"
+                             loading="lazy">
+                    </picture>
+                </div>
                 <div class="project-info">
                     <p id="modalDescription">Описание проекта...</p>
-                    <div class="tech-stack" id="modalTechStack">
-                    </div>
+                    <div class="tech-stack" id="modalTechStack"></div>
                     <p><strong>Срок выполнения:</strong> <span id="modalDuration">...</span></p>
                     <p><strong>Статус:</strong> <span id="modalStatus">...</span></p>
                 </div>
                 <div class="project-links">
                     <a href="#" class="project-link" id="modalCodeLink" target="_blank">Исходный код</a>
-                </div>
-                <div class = "project-links">
                     <a href="#" class="project-link2" id="modalDemoLink" target="_blank">Демо</a>
                 </div>
             </div>
@@ -387,7 +457,7 @@
             card.addEventListener('click', () => {
                 const projectId = card.getAttribute('data-project');
                 const projectData = projectsData[projectId];
-                
+
                 if (projectData) {
                     modalTitle.textContent = projectData.title;
                     modalDescription.textContent = projectData.description;
@@ -395,7 +465,7 @@
                     modalStatus.textContent = projectData.status;
                     modalDemoLink.href = projectData.demoLink;
                     modalCodeLink.href = projectData.codeLink;
-                    
+
                     modalTechStack.innerHTML = '';
                     projectData.technologies.forEach(tech => {
                         const techTag = document.createElement('span');
@@ -403,7 +473,7 @@
                         techTag.textContent = tech;
                         modalTechStack.appendChild(techTag);
                     });
-                    
+
                     modal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                 }
@@ -433,9 +503,9 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
 
                 btn.classList.add('active');
-                
+
                 const filter = btn.textContent.toLowerCase();
-                
+
                 projectCards.forEach(card => {
                     if (filter === 'все' || card.getAttribute('data-category') === filter) {
                         card.style.display = 'flex';
@@ -447,4 +517,5 @@
         });
     </script>
 </body>
+
 </html>

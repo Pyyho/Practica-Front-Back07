@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Личный сайт студента</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/styles-responsive-images.css">
 </head>
-
 <body>
     <a class="skip-link" href="#main">Перейти к основному содержимому</a>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="Логотип">
+                <!-- Retina поддержка для логотипа -->
+                <img src="images/logo.png" 
+                     srcset="images/logo.png 1x, images/logo@2x.png 2x" 
+                     alt="Логотип" 
+                     width="40" 
+                     height="40">
                 <span>Тищенко Данил</span>
             </div>
             <nav>
@@ -37,8 +41,18 @@
                         <a href="assets/resume.pdf" class="btn" download>Скачать резюме</a>
                     </div>
                     <div class="hero-image">
-                        <img src="images/student-photo.jpg" alt="Фото студента" width="280" height="180"
-                            class="hero-photo">
+                        <!-- Адаптивное изображение с разными форматами -->
+                        <picture>
+                            <source media="(min-width: 1200px)" srcset="images/student-photo-desktop.webp" type="image/webp">
+                            <source media="(min-width: 768px)" srcset="images/student-photo-tablet.webp" type="image/webp">
+                            <source srcset="images/student-photo-mobile.webp" type="image/webp">
+                            <source media="(min-width: 1200px)" srcset="images/student-photo-desktop.jpg">
+                            <source media="(min-width: 768px)" srcset="images/student-photo-tablet.jpg">
+                            <img src="images/student-photo-mobile.jpg" 
+                                 alt="Фото студента" 
+                                 class="responsive-image hero__photo"
+                                 loading="eager">
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -47,6 +61,7 @@
         <section class="skills">
             <div class="container">
                 <h2>Мои навыки</h2>
+                <!-- Оставляем существующие прогресс-бары -->
                 <div class="skill-item">
                     <span>HTML/CSS</span>
                     <div class="skill-bar">
@@ -82,9 +97,18 @@
             <div class="container">
                 <h2>Лучшие проекты</h2>
                 <div class="projects-grid">
+                    <!-- Проект 1 с адаптивным изображением -->
                     <a href="https://github.com/Pyyho/Game" class="project-card" target="_blank">
                         <div class="project-image">
-                            <i class="fas fa-laptop-code"></i>
+                            <picture>
+                                <source srcset="images/game-project.webp" type="image/webp">
+                                <img src="images/game-project.jpg" 
+                                     alt="Игра на Python" 
+                                     class="object-fit-cover"
+                                     loading="lazy"
+                                     width="400" 
+                                     height="300">
+                            </picture>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Игра</h3>
@@ -96,9 +120,18 @@
                         </div>
                     </a>
 
+                    <!-- Проект 2 с адаптивным изображением -->
                     <a href="https://github.com/Pyyho/Calcilator" class="project-card" target="_blank">
                         <div class="project-image">
-                            <i class="fas fa-tasks"></i>
+                            <picture>
+                                <source srcset="images/calculator-project.webp" type="image/webp">
+                                <img src="images/calculator-project.jpg" 
+                                     alt="Калькулятор на C#" 
+                                     class="object-fit-cover"
+                                     loading="lazy"
+                                     width="400" 
+                                     height="300">
+                            </picture>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Calculator</h3>
@@ -110,16 +143,21 @@
                         </div>
                     </a>
 
-                    <a href="https://github.com/Pyyho/frontend-and-backend-practice-07" class="project-card"
-                        target="_blank">
+                    <!-- Проект 3 с адаптивным изображением -->
+                    <a href="https://github.com/Pyyho/frontend-and-backend-practice-07" class="project-card" target="_blank">
                         <div class="project-image">
-                            <i class="fas fa-shopping-cart"></i>
+                            <picture>
+                                <source srcset="images/portfolio-project.webp" type="image/webp">
+                                <img src="images/portfolio-project.jpg" 
+                                     class="object-fit-cover"
+                                     loading="lazy"
+                                     width="400" 
+                                     height="300">
+                            </picture>
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">Личный сайт</h3>
-                            <p class="project-description">Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным
-                                дизайном.
-                            </p>
+                            <p class="project-description">Сайт-портфолио на HTML, CSS и Bootstrap с адаптивным дизайном.</p>
                             <div class="project-tech">
                                 <span class="tech-tag">HTML</span>
                                 <span class="tech-tag">CSS</span>
@@ -131,7 +169,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer>
@@ -139,8 +176,24 @@
             <p>&copy; 2025 Контакты</p>
         </div>
     </footer>
+
+    <!-- Скрипт для lazy loading -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+    </script>
 </body>
-
-</html>
-
 </html>
