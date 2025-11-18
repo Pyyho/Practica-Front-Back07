@@ -12,7 +12,6 @@
     <header>
         <div class="container">
             <div class="logo">
-                <!-- Retina поддержка для логотипа -->
                 <img src="images/logo.png" 
                      srcset="images/logo.png 1x, images/logo@2x.png 2x" 
                      alt="Логотип" 
@@ -41,7 +40,6 @@
                         <a href="assets/resume.pdf" class="btn" download>Скачать резюме</a>
                     </div>
                     <div class="hero-image">
-                        <!-- Адаптивное изображение с разными форматами -->
                         <picture>
                             <source media="(min-width: 1200px)" srcset="images/student-photo-desktop.webp" type="image/webp">
                             <source media="(min-width: 768px)" srcset="images/student-photo-tablet.webp" type="image/webp">
@@ -61,7 +59,6 @@
         <section class="skills">
             <div class="container">
                 <h2>Мои навыки</h2>
-                <!-- Оставляем существующие прогресс-бары -->
                 <div class="skill-item">
                     <span>HTML/CSS</span>
                     <div class="skill-bar">
@@ -97,7 +94,6 @@
             <div class="container">
                 <h2>Лучшие проекты</h2>
                 <div class="projects-grid">
-                    <!-- Проект 1 с адаптивным изображением -->
                     <a href="https://github.com/Pyyho/Game" class="project-card" target="_blank">
                         <div class="project-image">
                             <picture>
@@ -120,7 +116,6 @@
                         </div>
                     </a>
 
-                    <!-- Проект 2 с адаптивным изображением -->
                     <a href="https://github.com/Pyyho/Calcilator" class="project-card" target="_blank">
                         <div class="project-image">
                             <picture>
@@ -143,7 +138,6 @@
                         </div>
                     </a>
 
-                    <!-- Проект 3 с адаптивным изображением -->
                     <a href="https://github.com/Pyyho/frontend-and-backend-practice-07" class="project-card" target="_blank">
                         <div class="project-image">
                             <picture>
@@ -177,7 +171,6 @@
         </div>
     </footer>
 
-    <!-- Скрипт для lazy loading -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const lazyImages = document.querySelectorAll('img[loading="lazy"]');
