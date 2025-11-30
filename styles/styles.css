@@ -79,7 +79,7 @@ header {
     padding-inline-start: calc(1rem + env(safe-area-inset-left));
     padding-inline-end: calc(1rem + env(safe-area-inset-right));
     background: #2563eb;
-    color: #fff;
+    color: #ffffff;
     z-index: 100;
     isolation: isolate;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
@@ -90,6 +90,29 @@ header .container {
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
+}
+
+header .logo,
+header .logo span {
+    color: #ffffff;
+}
+
+header nav a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+header nav a:hover,
+header nav a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+header nav a:focus {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
 }
 
 .logo {
@@ -964,6 +987,14 @@ footer {
 
     .btn {
         border: 2px solid #000;
+    }
+
+    header {
+        background: #1e40af;
+    }
+    
+    header nav a {
+        font-weight: 700;
     }
 }
 

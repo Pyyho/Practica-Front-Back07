@@ -14,16 +14,8 @@
     <header>
         <div class="container">
             <div class="logo">
-                <picture>
-                    <source srcset="../images/logo.webp" type="image/webp">
-                    <source srcset="../images/logo.png" type="image/png">
-                    <img src="../images/logo.png" 
-                         srcset="../images/logo.png 1x, ../images/logo@2x.png 2x" 
-                         alt="Логотип" 
-                         width="40" 
-                         height="40"
-                         class="retina-image">
-                </picture>
+                <img src="../images/logo.png" srcset="../images/logo.png 1x, ../images/logo@2x.png 2x" alt="Логотип"
+                    width="40" height="40" class="retina-image">
                 <span>Тищенко Данил</span>
             </div>
             <nav>
@@ -48,7 +40,7 @@
                     <button class="filter-btn">C#</button>
                     <button class="filter-btn">Bootstrap</button>
                 </div>
-                
+
                 <div class="projects-grid projects-gallery">
                     <!-- Личный сайт -->
                     <div class="project-card" data-category="html" data-project="personal-site">
@@ -56,10 +48,8 @@
                             <picture>
                                 <source srcset="../images/personal-site-thumb.webp" type="image/webp">
                                 <source srcset="../images/personal-site-thumb.jpg" type="image/jpeg">
-                                <img src="../images/personal-site-thumb.jpg" 
-                                     alt="Личный сайт с адаптивным дизайном"
-                                     loading="lazy"
-                                     class="responsive-image object-fit-cover retina-image">
+                                <img src="../images/personal-site-thumb.jpg" alt="Личный сайт с адаптивным дизайном"
+                                    loading="lazy" class="responsive-image object-fit-cover retina-image">
                             </picture>
                         </div>
                         <h3>Личный сайт</h3>
@@ -72,10 +62,8 @@
                             <picture>
                                 <source srcset="../images/game-project.webp" type="image/webp">
                                 <source srcset="../images/game-project.jpg" type="image/jpeg">
-                                <img src="../images/game-project.jpg" 
-                                     alt="Игра разработанная на Python"
-                                     loading="lazy"
-                                     class="responsive-image object-fit-cover retina-image">
+                                <img src="../images/game-project.jpg" alt="Игра разработанная на Python" loading="lazy"
+                                    class="responsive-image object-fit-cover retina-image">
                             </picture>
                         </div>
                         <h3>Игра</h3>
@@ -88,10 +76,8 @@
                             <picture>
                                 <source srcset="../images/calculator-project.webp" type="image/webp">
                                 <source srcset="../images/calculator-project.jpg" type="image/jpeg">
-                                <img src="../images/calculator-project.jpg" 
-                                     alt="Калькулятор на C#"
-                                     loading="lazy"
-                                     class="responsive-image object-fit-cover retina-image">
+                                <img src="../images/calculator-project.jpg" alt="Калькулятор на C#" loading="lazy"
+                                    class="responsive-image object-fit-cover retina-image">
                             </picture>
                         </div>
                         <h3>Calculator</h3>
@@ -104,10 +90,8 @@
                             <picture>
                                 <source srcset="../images/portfolio-project.webp" type="image/webp">
                                 <source srcset="../images/portfolio-project.jpg" type="image/jpeg">
-                                <img src="../images/portfolio-project.jpg" 
-                                     alt="Портфолио на Bootstrap"
-                                     loading="lazy"
-                                     class="responsive-image object-fit-cover retina-image">
+                                <img src="../images/portfolio-project.jpg" alt="Портфолио на Bootstrap" loading="lazy"
+                                    class="responsive-image object-fit-cover retina-image">
                             </picture>
                         </div>
                         <h3>Портфолио</h3>
@@ -201,9 +185,9 @@
         const filterBtns = document.querySelectorAll('.filter-btn');
 
         // Ленивая загрузка изображений
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            
+
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -436,11 +420,11 @@
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-            
+
             .project-image-container {
                 height: 180px;
             }
-            
+
             .project-links {
                 flex-direction: column;
             }
@@ -450,7 +434,7 @@
             .project-image-container {
                 height: 150px;
             }
-            
+
             .modal-content {
                 margin: 10% auto;
                 width: 95%;
