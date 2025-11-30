@@ -78,7 +78,7 @@ header {
     padding-block-end: .75rem;
     padding-inline-start: calc(1rem + env(safe-area-inset-left));
     padding-inline-end: calc(1rem + env(safe-area-inset-right));
-    background: #2563eb;
+    background: #1e40af !important;;
     color: #ffffff;
     z-index: 100;
     isolation: isolate;
@@ -93,26 +93,28 @@ header .container {
 }
 
 header .logo,
-header .logo span {
-    color: #ffffff;
+header .logo span,
+header nav a {
+    color: #ffffff !important;
+    font-weight: 600;
 }
 
 header nav a {
-    color: #ffffff;
-    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
 header nav a:hover,
 header nav a.active {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
 }
 
 header nav a:focus {
-    outline: 3px solid #ffffff;
-    outline-offset: 2px;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #ffffff;
+    outline: 3px solid #ffffff !important;
+    outline-offset: 2px !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
 .logo {
